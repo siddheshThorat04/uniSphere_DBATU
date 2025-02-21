@@ -36,7 +36,7 @@ export const addMeet = async (req, res) => {
 export const getColleges = async (req, res) => {
     try {
         const colleges = await College.find()
-        res.status(200).json({colleges:colleges})
+        res.status(200).json({colleges:colleges })
     } catch (error) {
         res.status(400).json({error:error.message})
     }

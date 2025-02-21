@@ -13,7 +13,7 @@ import {  Route, Routes } from "react-router-dom";
 // import { useAuthStore } from "./store/authStore";
 // import { useEffect } from "react";
 import Signup from "./pages/Signup";
-
+import Home from "./pages/Home";
 // protect routes that require authentication
 // const ProtectedRoute = ({ children }) => {
 // 	const { isAuthenticated, user } = useAuthStore();
@@ -40,12 +40,14 @@ import Signup from "./pages/Signup";
 // 	return children;
 // };
 
+import { useAuthContext } from "./context/authContext";
 function App() {
+	const {authUser, setauthUser}=useAuthContext()	
 	return (
 		<>
 
 			<Routes>
-				<Route path='/' element={   <Signup />} />
+				<Route path='/' element={ authUser?<Home/>	:  <Signup />} />
 			</Routes>
 		</>
 	);

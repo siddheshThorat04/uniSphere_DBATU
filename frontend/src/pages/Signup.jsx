@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useAuthContext } from '../context/authContext';
+import { useDarkThemeContext } from '../context/DarkTheme';
 // import { useDarkThemeContext } from '../context/DarkTheme';
 // import eventsLogo from '../assets/events.png'
 // import chattingPPLogo from '../assets/chatHomeLogo.png'
@@ -15,8 +16,8 @@ import { useAuthContext } from '../context/authContext';
     const API="http://localhost:5000"
     const {authUser,setauthUser}=useAuthContext();
     const [colleges, setcolleges] = useState([]);
+    const {setDark}=useDarkThemeContext()
     useEffect(() => {
-        console.log(mode)
         const getCollleges = async () => {
         const res = await axios.get(`${API}/api/admin/getClg`)
             console.log(res.data)
@@ -40,7 +41,7 @@ import { useAuthContext } from '../context/authContext';
     
         localStorage.setItem("authUser", JSON.stringify(response.data.user));
         setauthUser(response.data.user);
-        
+        localStorage.setItem("mbTheme", false)
     }
   }
 
