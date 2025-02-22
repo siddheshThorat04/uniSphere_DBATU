@@ -21,7 +21,8 @@ const News = () => {
     console.log(res.data)
     setnews(res.data?.news.reverse())
     }
-
+    console.log(typeof(isDark))
+    console.log(isDark)
     getNews()
   },[])
   const deleteNews = async (id) => {
@@ -59,7 +60,8 @@ const News = () => {
     });
   }
   return (
-    <div className={isDark==="false"?' flex flex-col jusify-center items-center bg-white':'h-screen bg-black flex flex-col jusify-center items-center'} >
+    <div className={isDark==="false"?' flex flex-col jusify-center items-center bg-white':'h-screen bg-black flex flex-col jusify-center items-center bg-black'} >
+
       <button className= "text-black"  ><CiHome onClick={() => window.location.href = "/"   } className={isDark==="false"?"HomeButton text-balck":"HomeButton text-white"}  /></button>
       <h1 className={isDark==="false"?'Post_latest_happening  text-gray-400 text-3xl ':"Post_latest_happening text-3xl"} >Latest News</h1>
   
@@ -68,9 +70,9 @@ const News = () => {
         
       {news?.map((item) => {
         return (
-          <div className={isDark==="false"?'newsDiv text-white w-[97vw]  ':"newsDiv w-[97vw]"}  key={item._id}      >
-            <h1 className={isDark==="false"?'newsTitle text-2xl text-white ':"newsTitle text-2xl text-white "}  >{item.title}<span className='clgName'  >{item.isForAll ?  "University": item.college.name}</span></h1>
-            <p className={isDark==="false"?'newsDescription text-white ':"newsDescription"}  >{item.description}</p>
+          <div className={isDark==="false"?'newsDiv text-black w-[97vw]  ':"newsDiv w-[97vw]"}  key={item._id}      >
+            <h1 className={isDark==="false"?'newsTitle text-2xl text-black ':"newsTitle text-2xl text-white "}  >{item.title}<span className='clgName'  >{item.isForAll ?  "University": item.college.name}</span></h1>
+            <p className={isDark==="false"?'newsDescription  text-wrap text-gray-800 ':"newsDescription"}  >{item.description}</p>
             {item.image && <div className={isDark==="false"?'newsImageDiv newsImageDivDark':"newsImageDiv"}>
               <img src={item.image} className='newsImage' alt="" />
             </div>}
