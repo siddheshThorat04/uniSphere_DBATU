@@ -4,6 +4,7 @@ import axios from "axios"
 import {useAuthContext} from '../context/authContext'
 import { useDarkThemeContext } from '../context/DarkTheme'
 import { CiHome } from "react-icons/ci";
+import { MdDelete } from "react-icons/md";
 
 const News = () => {
   const {authUser}=useAuthContext()
@@ -32,7 +33,8 @@ const News = () => {
         'Content-Type': 'application/json'
       }
     })
-    const data = await res.json()
+    const data =res.data
+    console.log(data)
     window.location.reload();
   }
   const submit = async (e) => {
@@ -70,14 +72,14 @@ const News = () => {
         
       {news?.map((item) => {
         return (
-          <div className={isDark==="false"?'newsDiv text-black w-[97vw]  ':"newsDiv w-[97vw]"}  key={item._id}      >
-            <h1 className={isDark==="false"?'newsTitle text-2xl text-black ':"newsTitle text-2xl text-white "}  >{item.title}<span className='clgName'  >{item.isForAll ?  "University": item.college.name}</span></h1>
-            <p className={isDark==="false"?'newsDescription  text-wrap text-gray-800 ':"newsDescription"}  >{item.description}</p>
+          <div className={isDark==="false"?'newsDiv  border-1 border-black  text-black w-[97vw]  ':"newsDiv border-1 border-white w-[97vw]"}  key={item._id}      >
+            <div  className='w-full flex items-center'  ><h1 className={isDark==="false"?'newsTitle text-2xl text-black min-w-[80vw]   max-w-[80vw] overflow-auto scrollbar-hidden':"newsTitle text-2xl text-white  max-w-[80vw] overflow-auto "}  >{item.title}</h1><span className='absolute text-blue-700 right-1'  >{item.isForAll ?  "University": item.college.name}</span></div>
+            <p className={isDark==="false"?'newsDescription   text-gray-800 ':"newsDescription"}  >{item.description}</p>
             {item.image && <div className={isDark==="false"?'newsImageDiv newsImageDivDark':"newsImageDiv"}>
               <img src={item.image} className='newsImage' alt="" />
             </div>}
             <a href={`/profile/${item.postedBy._id}`} className="newsPostedBy"  ><span className={isDark==="false"?"text-black ":"text-white text-sm text-opacity-70"} >posted by: </span> <img src={dp} alt="" className='postedByDp'   /> <h5 className={isDark==="false"?"text-black ":"text-white"}> {item.postedBy.username}</h5></a>
-            {(authUser.isAdmin || authUser._id === item.postedBy._id) &&  <button onClick={() => deleteNews(item._id)} className='text-red-500'  />}
+            {(authUser.isAdmin || authUser._id === item.postedBy._id) &&  < MdDelete onClick={() => deleteNews(item._id)} className='text-red-500'  />}
           </div>
         )
       })}
