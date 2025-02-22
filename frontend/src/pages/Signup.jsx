@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useAuthContext } from '../context/authContext';
-import { useDarkThemeContext } from '../context/DarkTheme';
+// import { useDarkThemeContext } from '../context/DarkTheme';
 // import { useDarkThemeContext } from '../context/DarkTheme';
 // import eventsLogo from '../assets/events.png'
 // import chattingPPLogo from '../assets/chatHomeLogo.png'
@@ -11,12 +11,12 @@ import { useDarkThemeContext } from '../context/DarkTheme';
 
     const Signup = () => {
 
-    const mode = import.meta.env.VITE_MODE;
+    // const mode = import.meta.env.VITE_MODE;
     // const API = mode === "DEVELOPMENT" ? import.meta.env.VITE_API_DEV : import.meta.env.VITE_API
     const API="http://localhost:5000"
-    const {authUser,setauthUser}=useAuthContext();
+    const {setauthUser}=useAuthContext();
     const [colleges, setcolleges] = useState([]);
-    const {setDark}=useDarkThemeContext()
+    // const {setDark}=useDarkThemeContext()
     useEffect(() => {
         const getCollleges = async () => {
         const res = await axios.get(`${API}/api/admin/getClg`)
@@ -32,7 +32,7 @@ import { useDarkThemeContext } from '../context/DarkTheme';
     const username = e.target[0].value
     const password = e.target[1].value
     const college = e.target[2].value;
-    const response = await axios.post(`${API}/api/auth/signup`, { username, password, college });
+    const response = await axios.post(`${API}/api/auth/signup`, { username, password, college }, { withCredentials: true });
     console.log(response.data)
     if(response.data.error){
         alert(response.data.error)
