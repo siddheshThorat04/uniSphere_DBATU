@@ -62,7 +62,7 @@ const News = () => {
     });
   }
   return (
-    <div className={isDark==="false"?' flex flex-col jusify-center items-center bg-white':'h-screen bg-black flex flex-col jusify-center items-center bg-black'} >
+    <div className={isDark==="false"?' flex flex-col  min-h-screen jusify-center items-center bg-white':'min-h-screen bg-black flex flex-col jusify-center items-center bg-black'} >
 
       <button className= "text-black"  ><CiHome onClick={() => window.location.href = "/"   } className={isDark==="false"?"HomeButton text-balck":"HomeButton text-white"}  /></button>
       <h1 className={isDark==="false"?'Post_latest_happening  text-gray-400 text-3xl ':"Post_latest_happening text-3xl"} >Latest News</h1>

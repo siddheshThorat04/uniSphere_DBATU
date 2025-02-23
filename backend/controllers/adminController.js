@@ -25,8 +25,8 @@ export const addMeet = async (req, res) => {
 
         const meet = new Meet({ name, link })
 
-        res.status(200).json(meet)
         await meet.save()
+        res.status(200).json(meet)
     } catch (error) {
         res.status(400).json({error:error.message})
     }

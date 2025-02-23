@@ -43,6 +43,7 @@ import Home from "./pages/Home";
 import { useAuthContext } from "./context/authContext";
 import News from "./pages/News";
 import StudyZone from "./pages/StudyZone";
+import Admin from "./pages/Admin";
 function App() {
 	const {authUser, setauthUser}=useAuthContext()	
 	return (
@@ -52,6 +53,7 @@ function App() {
 				<Route path='/' element={ authUser?<Home/>	:  <Signup />} />
 				<Route path='/news' element={<News/>} />
 				<Route path='/study-zone' element={<StudyZone/>} />
+				<Route path='/OnlyForAdmin' element={<Admin/>} />
 			</Routes>
 		</>
 	);
