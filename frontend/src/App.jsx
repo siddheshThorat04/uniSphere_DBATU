@@ -44,6 +44,7 @@ import { useAuthContext } from "./context/authContext";
 import News from "./pages/News";
 import StudyZone from "./pages/StudyZone";
 import Admin from "./pages/Admin";
+
 function App() {
 	const {authUser, setauthUser}=useAuthContext()	
 	return (
