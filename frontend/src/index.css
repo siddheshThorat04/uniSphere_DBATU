@@ -459,6 +459,7 @@ body::-webkit-scrollbar {
 
   text-align: center;
   background: none;
+  margin: auto;
 }
 
 .Post_latest_happening,
@@ -771,7 +772,7 @@ body::-webkit-scrollbar {
   padding: 30px 30px;
   text-align: center;
   flex-direction: column;
-  color: white; 
+  /* color: white;  */
 }
 .darkCard{
   border: 0.01ch solid black;

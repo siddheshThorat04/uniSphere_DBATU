@@ -65,9 +65,9 @@ const News = () => {
     <div className={isDark==="false"?'min-h-screen bg-black flex flex-col jusify-center items-center bg-black':' flex flex-col  min-h-screen jusify-center items-center bg-white'} >
 
       <button className= "text-black"  ><CiHome onClick={() => window.location.href = "/"   } className={isDark==="false"?"HomeButton text-white":"HomeButton text-black"}  /></button>
-      <h1 className={isDark==="false"?"Post_latest_happening text-3xl mt-[20px]":'Post_latest_happening  text-gray-400   text-3xl '} >Latest News</h1>
+      <h1 className={isDark==="false"?"Post_latest_happening text-3xl   mt-[20px]":'Post_latest_happening  text-gray-400   text-3xl '} >Latest News</h1>
   
-      {news?.length==0 && <h1 className={isDark==="false"?"Post_latest_happening2 text-white text-3xl" :'Post_latest_happening2  text-3xl text-black  '} >Ohh, Such a Empty 😞 <span className={isDark==="false"?'post_something_na text-white ':'post_something_na text-black'}  >What's happening in Your College ? Share it.</span></h1>}
+      {news?.length==0 && <h1 className={isDark==="false"?"Post_latest_happening2 text-white  text-3xl" :'Post_latest_happening2  text-3xl text-black  '} >Ohh, Such a Empty 😞 <span className={isDark==="false"?'post_something_na text-white ':'post_something_na text-black'}  >What's happening in Your College ? Share it.</span></h1>}
       <div className="newsDiv2">
         
       {news?.map((item) => {

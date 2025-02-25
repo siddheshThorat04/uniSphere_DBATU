@@ -40,7 +40,7 @@ const StudyZone = () => {
         <div className={isDark==="false" ? 'bg-black min-h-screen ' : "bg-white min-h-screen"}  >
             <button className={isDark === "false" ? "text-black" : ""}  ><GoHome onClick={() => window.location.href = "/"} className={isDark === "false" ?"HomeButton text-white"  :"HomeButton text-balck" } /></button>
             {meetZone.length == 0 && <h1 className={isDark === "false" ? 'studyZoneNoMeet text-black ' : "studyZoneNoMeet  text-gray-200  "}  >Remind Us To Add New Meetings  <a target="_blank" href="https://www.instagram.com/sid__.4216/"><FaInstagram className='inline text-red-500' /></a></h1>}
-            <h1 className={isDark === "false" ?  ' studyZoneHeading     w-full text-gray-300 text-3xl h-[10vh]':' studyZoneHeading     w-full text-black text-3xl h-[10vh]    '}  >Study Zone</h1>
+            <h1 className={isDark === "false" ?  ' studyZoneHeading     w-full text-gray-300 text-3xl h-[10vh]':' studyZoneHeading             w-full text-black text-3xl h-[10vh]    '}  >Study Zone</h1>
             {
                 meetZone.map((item) => {
                     return (
