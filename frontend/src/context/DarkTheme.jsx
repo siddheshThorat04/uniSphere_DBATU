@@ -6,7 +6,7 @@ export const useDarkThemeContext=()=>{
     return  useContext(DarkThemeContext)
 }
 export const DarkThemeContextProvider=({children})=>{
-    const [isDark, setDark] = useState(localStorage.getItem("mbTheme")||false  );
+    const [isDark, setDark] = useState(localStorage.getItem("isDark")||false  );
     return <DarkThemeContext.Provider value={{isDark, setDark}}>
         {children}
         </DarkThemeContext.Provider>

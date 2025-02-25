@@ -62,23 +62,23 @@ const News = () => {
     });
   }
   return (
-    <div className={isDark==="false"?' flex flex-col  min-h-screen jusify-center items-center bg-white':'min-h-screen bg-black flex flex-col jusify-center items-center bg-black'} >
+    <div className={isDark==="false"?'min-h-screen bg-black flex flex-col jusify-center items-center bg-black':' flex flex-col  min-h-screen jusify-center items-center bg-white'} >
 
-      <button className= "text-black"  ><CiHome onClick={() => window.location.href = "/"   } className={isDark==="false"?"HomeButton text-balck":"HomeButton text-white"}  /></button>
-      <h1 className={isDark==="false"?'Post_latest_happening  text-gray-400 text-3xl ':"Post_latest_happening text-3xl"} >Latest News</h1>
+      <button className= "text-black"  ><CiHome onClick={() => window.location.href = "/"   } className={isDark==="false"?"HomeButton text-white":"HomeButton text-black"}  /></button>
+      <h1 className={isDark==="false"?"Post_latest_happening text-3xl mt-[20px]":'Post_latest_happening  text-gray-400   text-3xl '} >Latest News</h1>
   
-      {news?.length==0 && <h1 className={isDark==="false"?'Post_latest_happening2  text-3xl text-white ':"Post_latest_happening2 text-3xl"} >Ohh, Such a Empty 😞 <span className={isDark==="false"?'post_something_na text-black ':'post_something_na text-white'}  >What's happening in Your College ? Share it.</span></h1>}
+      {news?.length==0 && <h1 className={isDark==="false"?"Post_latest_happening2 text-white text-3xl" :'Post_latest_happening2  text-3xl text-black  '} >Ohh, Such a Empty 😞 <span className={isDark==="false"?'post_something_na text-white ':'post_something_na text-black'}  >What's happening in Your College ? Share it.</span></h1>}
       <div className="newsDiv2">
         
       {news?.map((item) => {
         return (
-          <div className={isDark==="false"?'newsDiv  border-1 border-black  text-black w-[97vw]  ':"newsDiv border-1 border-white w-[97vw]"}  key={item._id}      >
-            <div  className='w-full flex items-center'  ><h1 className={isDark==="false"?'newsTitle text-2xl text-black min-w-[80vw]   max-w-[80vw] overflow-auto scrollbar-hidden':"newsTitle text-2xl text-white  max-w-[80vw] overflow-auto "}  >{item.title}</h1><span className='absolute text-blue-700 right-1'  >{item.isForAll ?  "University": item.college.name}</span></div>
-            <p className={isDark==="false"?'newsDescription   text-gray-800 ':"newsDescription"}  >{item.description}</p>
+          <div className={isDark==="false"?"newsDiv border-1 border-white w-[97vw]":'newsDiv  border-1 border-black  text-black w-[97vw]  '}  key={item._id}      >
+            <div  className='w-full flex items-center'  ><h1 className={isDark==="false"?"newsTitle text-2xl text-white  max-w-[80vw] overflow-auto ":'newsTitle text-2xl text-black min-w-[80vw]   max-w-[80vw] overflow-auto '}  >{item.title}</h1><span className='absolute text-blue-700 right-1'  >{item.isForAll ?  "University": item.college.name}</span></div>
+            <p className={isDark==="false"?'newsDescription text-gray-300    ':"newsDescription text-black "}  >{item.description}</p>
             {item.image && <div className={isDark==="false"?'newsImageDiv newsImageDivDark':"newsImageDiv"}>
               <img src={item.image} className='newsImage' alt="" />
             </div>}
-            <a href={`/profile/${item.postedBy._id}`} className="newsPostedBy"  ><span className={isDark==="false"?"text-black ":"text-white text-sm text-opacity-70"} >posted by: </span> <img src={dp} alt="" className='postedByDp'   /> <h5 className={isDark==="false"?"text-black ":"text-white"}> {item.postedBy.username}</h5></a>
+            <a href={`/profile/${item.postedBy._id}`} className="newsPostedBy"  ><span className={isDark==="false"?"text-white ":"text-black text-sm text-opacity-70"} >posted by: </span> <img src={dp} alt="" className='postedByDp'   /> <h5 className={isDark==="false"?"text-white ":"text-black"}> {item.postedBy.username}</h5></a>
             {(authUser.isAdmin || authUser._id === item.postedBy._id) &&  < MdDelete onClick={() => deleteNews(item._id)} className='text-red-500'  />}
           </div>
         )
@@ -95,7 +95,7 @@ const News = () => {
         </div>
         <button type="submit" className='submitbtn' >submit</button>
       </form></div>}
-      <button onClick={() => setIsAdding(!isAdding)} className={isDark==="false"?'isAddingBtn ':"isAddingBtn isAddingBtnDark"}   >+</button>
+      <button onClick={() => setIsAdding(!isAdding)} className={isDark==="false"?'isAddingBtn border-[1px] border-white text-white':"isAddingBtn border-[1px] border-black text-black "}   >+</button>
     </div>
   )
 }

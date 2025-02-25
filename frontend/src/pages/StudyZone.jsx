@@ -37,20 +37,20 @@ const StudyZone = () => {
         console.log(data);
     }
     return (
-        <div className={isDark==="false" ? 'bg-white min-h-screen ' : "bg-white min-h-screen"}  >
-            <button className={isDark === "false" ? "text-black" : ""}  ><GoHome onClick={() => window.location.href = "/"} className={isDark === "false" ? "HomeButton text-balck" : "HomeButton text-white"} /></button>
+        <div className={isDark==="false" ? 'bg-black min-h-screen ' : "bg-white min-h-screen"}  >
+            <button className={isDark === "false" ? "text-black" : ""}  ><GoHome onClick={() => window.location.href = "/"} className={isDark === "false" ?"HomeButton text-white"  :"HomeButton text-balck" } /></button>
             {meetZone.length == 0 && <h1 className={isDark === "false" ? 'studyZoneNoMeet text-black ' : "studyZoneNoMeet  text-gray-200  "}  >Remind Us To Add New Meetings  <a target="_blank" href="https://www.instagram.com/sid__.4216/"><FaInstagram className='inline text-red-500' /></a></h1>}
-            <h1 className={isDark === "false" ? 'text-black text-3xl h-[10vh]  ' : "text-black text-3xl "}  >Study Zone</h1>
+            <h1 className={isDark === "false" ?  ' studyZoneHeading     w-full text-gray-300 text-3xl h-[10vh]':' studyZoneHeading     w-full text-black text-3xl h-[10vh]    '}  >Study Zone</h1>
             {
                 meetZone.map((item) => {
                     return (
-                        <div className={isDark === "false" ? '  border-black  border-[1px]  mt-4 rounded-lg  p-2 mr-2 ml-2 ' : "border-white  border-[1px]  mt-4 rounded-lg"} key={item._id}  >
+                        <div className={isDark === "false" ? '  border-white  border-[1px]  mt-4 rounded-lg  p-2 mr-2 ml-2 ' : '  border-black  border-[1px]  mt-4 rounded-lg  p-2 mr-2 ml-2 ' } key={item._id}  >
                             <div className='flex items-center justify-between w-full' >
                                 <div>
-                                    <h1 className={isDark === "false" ? 'studyZoneSubHeading text-black text-3xl ' : "studyZoneSubHeading text-white text-3xl"}  >{item.name}</h1>
+                                    <h1 className={isDark === "false" ?"studyZoneSubHeading text-white text-3xl"  :'studyZoneSubHeading text-black text-3xl ' }  >{item.name}</h1>
                                     <button className='studyZoneButton'  ><a href={item.link}>Join</a></button>
                                 </div>
-                                <MdGroups className={isDark === "false" ? 'text-4xl text-black' : 'text-4xl text-white'} />
+                                <MdGroups className={isDark === "false" ? 'text-4xl text-white' : 'text-4xl text-black'} />
                                 {authUser.isAdmin && <MdDelete onClick={() => deleteMeet(item._id)} />}
                             </div>
 
