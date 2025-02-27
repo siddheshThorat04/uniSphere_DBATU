@@ -30,16 +30,17 @@ const Admin = () => {
     const addCollege=async (e)=>{
         try {
             e.preventDefault()
-            const res= await fetch(`${API}/api/admin/addCollege`,{
-                method:"POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                  },
-                body:JSON.stringify({name:collegeName}) 
-
+            const res= await axios.post(`${API}/api/admin/addCollege`,{
+                // method:"POST",
+                // headers: {
+                //     'Content-Type': 'application/json'
+                //   },
+                // body:JSON.stringify({name:collegeName}) 
+                 withCredentials:true,
+                name:collegeName     
             })
-            const data=await res.json()
-            console.log(data);
+
+            console.log(res.data);
         } catch (error) {
             console.log(error);
             
@@ -60,10 +61,10 @@ const Admin = () => {
 
             <div className="navigation">
 
-                <button className="card"  onClick={() => {setIsAddingMeet(!isAddingMeet); }}  >  Add meet</button>
+                <button className="card  text-white"  onClick={() => {setIsAddingMeet(!isAddingMeet); }}  >  Add meet</button>
 
-                <button className="card"  onClick={() => setIsAddingCollege(!isAddingCollege)}  >Add College</button>
-                <button className="card"  onClick={() => setIsAddingCollege(!isAddingLeadboard)}  >Add LeadBoard</button>
+                <button className="card text-white"  onClick={() => setIsAddingCollege(!isAddingCollege)}  >Add College</button>
+
 
             </div>
         </>
