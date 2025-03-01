@@ -61,9 +61,10 @@ const News = () => {
       console.error("Error:", error.response?.data?.message || "An error occurred");
     });
   }
+  const [fullScreenImage, setfullScreenImage] = useState(null);
   return (
     <div className={isDark==="false"?'min-h-screen bg-black flex flex-col jusify-center items-center bg-black':' flex flex-col  min-h-screen jusify-center items-center bg-white'} >
-
+      {fullScreenImage && <div className='h-screen z-50 flex  justify-center items-center absolute top-[50%] bottom-[50%] translate-y-[-50%]  left-0 right-0 bg-[rgba(0,0,0,0.8)] '><h1 onClick={() => setfullScreenImage(null)} className='text-white text-3xl absolute top-2 right-2'  >  x</h1><img src={fullScreenImage} alt="" className='h-[80%]' /></div>}
       <button className= "text-black"  ><CiHome onClick={() => window.location.href = "/"   } className={isDark==="false"?"HomeButton text-white":"HomeButton text-black"}  /></button>
       <h1 className={isDark==="false"?"Post_latest_happening text-3xl   mt-[20px]":'Post_latest_happening  text-gray-400   text-3xl '} >Latest News</h1>
   
@@ -76,7 +77,7 @@ const News = () => {
             <div  className='w-full flex items-center'  ><h1 className={isDark==="false"?"newsTitle text-2xl text-white  max-w-[80vw] overflow-auto ":'newsTitle text-2xl text-black min-w-[80vw]   max-w-[80vw] overflow-auto '}  >{item.title}</h1><span className='absolute text-blue-700 right-1'  >{item.isForAll ?  "University": item.college.name}</span></div>
             <p className={isDark==="false"?'newsDescription text-gray-300    ':"newsDescription text-black "}  >{item.description}</p>
             {item.image && <div className={isDark==="false"?'newsImageDiv newsImageDivDark':"newsImageDiv"}>
-              <img src={item.image} className='newsImage' alt="" />
+              <img src={item.image} onClick={() => setfullScreenImage(item.image)} className='newsImage' alt="" />
             </div>}
             <a href={`/profile/${item.postedBy._id}`} className="newsPostedBy"  ><span className={isDark==="false"?"text-white ":"text-black text-sm text-opacity-70"} >posted by: </span> <img src={dp} alt="" className='postedByDp'   /> <h5 className={isDark==="false"?"text-white ":"text-black"}> {item.postedBy.username}</h5></a>
             {(authUser.isAdmin || authUser._id === item.postedBy._id) &&  < MdDelete onClick={() => deleteNews(item._id)} className='text-red-500'  />}
