@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios"
 
-import { GoHome } from "react-icons/go";
+import { CiHome } from "react-icons/ci";
 import { useDarkThemeContext } from '../context/DarkTheme';
 import { MdDelete } from "react-icons/md";
 import { useAuthContext } from '../context/authContext';
@@ -60,23 +60,24 @@ const Events = () => {
       console.error("Error:", error.response?.data?.message || "An error occurred");
     });
   }
-
+  const [fullScreenImage, setfullScreenImage] = useState(null);
   return (
-    <div className='mainNewsDiv' >
-      <button className={isDark==="false"?"HomeButton HomeButtonDark":"HomeButton"}   ><GoHome onClick={() => window.location.href = "/" }/></button>
-      <h1 className={isDark==="false"?'Post_latest_happening Post_latest_happeningDark text-3xl':"Post_latest_happening text-3xl  "} >Events</h1>
+    <div className={isDark==="false"?'bg-black min-h-screen flex felx-col justify-center ':'bg-white  min-h-screen flex felx-col justify-center  '} >
+      {fullScreenImage && <div className='h-screen z-50 flex  justify-center items-center fixed top-[50%] bottom-[50%] translate-y-[-50%]  left-0 right-0 bg-[rgba(0,0,0,0.8)] ' onClick={() => setfullScreenImage(null)} ><h1 onClick={() => setfullScreenImage(null)} className='text-white text-3xl absolute top-2 right-2'  >  x</h1><img src={fullScreenImage} alt="" className='h-[80%] h-fit' /></div>}
+      <button className={isDark==="false"?"HomeButton text-white":"HomeButton text-black"}   ><CiHome onClick={() => window.location.href = "/" }/></button>
+      <h1 className={isDark==="false"?'fixed z-1000 top-1 heading text-white  text-gray-400 text-3xl':"fixed z-1000 top-1  heading text-black text-3xl  "} >Events</h1>
       {events.length==0 && <h1 className={isDark==="false"?'Post_latest_happening2 text-black':'Post_latest_happening2 text-white'} >No upcoming Events.😞 <span className={isDark==="false"?'post_something_na text-black':'post_something_na text-white'}  >What's happening in Your College ? Share it.</span></h1>}
-      <div className="">
+      <div className="mt-10">
       {events.map((item) => {
         return (
-          <div className={isDark==="false"?'eventDiv  w-[97vw]':"eventDiv w-[97vw]"} key={item._id}  >
+          <div className={isDark==="false"?'eventDiv border-white w-[97vw]':"eventDiv border-black w-[97vw]"} key={item._id}  >
       
-            <h1 className={isDark==="false"?'eventTitle eventTitleDark text-2xl border-2 mb-[10px] ':"eventTitle text-2xl text-white border-2 mb-[10px]  "}  >{item.Name}  <span className='clgName'  >{item.isForAll ?  "University": item.college.name}</span> </h1>
-            <p className={isDark==="false"?'eventDescription ':'eventDescription text-gray-400'}  >{item.description}</p>
+            <h1 className={isDark==="false"?'flex justify-between ':" flex justify-between "}  > <span className={isDark==="false"?'w-[90%] eventTitle text-white tracking-wider text-2xl  overflow-auto':'w-[90%] eventTitle tracking-wider text-black text-xl overflow-auto'}> {item.Name} </span> <span className='clgName'  >{item.isForAll ?  "University": item.college.name}</span> </h1>
+            <p className={isDark==="false"?'text-gray-200 max-h-[250px] overflow-auto':'eventDescription text-black'}  >{item.description}</p>
             {item.image && <div className={isDark==="false"?'eventImageDiv eventImageDivDark':"eventImageDiv"}>
-              <img src={item.image} className='eventImage' alt="" />
+              <img src={item.image} onClick={() => setfullScreenImage(item.image)} className='eventImage' alt="" />
             </div>}
-            {authUser.isAdmin &&  <MdDelete  onClick={() => deleteEvent(item._id)}  className='text-red-500 text-3xl'  />}
+            {(authUser.isAdmin || authUser.postedBy === item.postedBy ) &&  <MdDelete  onClick={() => deleteEvent(item._id)}  className='text-red-500 text-xl'  />}
 
           </div>
         )

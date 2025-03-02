@@ -64,8 +64,8 @@ const News = () => {
   const [fullScreenImage, setfullScreenImage] = useState(null);
   return (
     <div className={isDark==="false"?'min-h-screen bg-black flex flex-col jusify-center items-center bg-black':' flex flex-col  min-h-screen jusify-center items-center bg-white'} >
-      {fullScreenImage && <div className='h-screen z-50 flex  justify-center items-center absolute top-[50%] bottom-[50%] translate-y-[-50%]  left-0 right-0 bg-[rgba(0,0,0,0.8)] '><h1 onClick={() => setfullScreenImage(null)} className='text-white text-3xl absolute top-2 right-2'  >  x</h1><img src={fullScreenImage} alt="" className='h-[80%]' /></div>}
-      <button className= "text-black"  ><CiHome onClick={() => window.location.href = "/"   } className={isDark==="false"?"HomeButton text-white":"HomeButton text-black"}  /></button>
+      {fullScreenImage && <div className='h-screen z-50 flex  justify-center items-center fixed top-[50%] bottom-[50%] translate-y-[-50%]  left-0 right-0 bg-[rgba(0,0,0,0.8)] '><h1 onClick={() => setfullScreenImage(null)} className='text-white text-3xl absolute top-2 right-2'  >  x</h1><img src={fullScreenImage} alt="" className='h-[80%]' /></div>}
+      <button className= "text-black z-100"  ><CiHome onClick={() => window.location.href = "/"   } className={isDark==="false"?"HomeButton text-white  ":"HomeButton text-black "}  /></button>
       <h1 className={isDark==="false"?"Post_latest_happening text-3xl   mt-[20px]":'Post_latest_happening  text-gray-400   text-3xl '} >Latest News</h1>
   
       {news?.length==0 && <h1 className={isDark==="false"?"Post_latest_happening2 text-white  text-3xl" :'Post_latest_happening2  text-3xl text-black  '} >Ohh, Such a Empty 😞 <span className={isDark==="false"?'post_something_na text-white ':'post_something_na text-black'}  >What's happening in Your College ? Share it.</span></h1>}
