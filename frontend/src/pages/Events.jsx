@@ -65,7 +65,7 @@ const Events = () => {
     <div className={isDark==="false"?'bg-black min-h-screen flex felx-col justify-center ':'bg-white  min-h-screen flex felx-col justify-center  '} >
       {fullScreenImage && <div className='h-screen z-50 flex  justify-center items-center fixed top-[50%] bottom-[50%] translate-y-[-50%]  left-0 right-0 bg-[rgba(0,0,0,0.8)] ' onClick={() => setfullScreenImage(null)} ><h1 onClick={() => setfullScreenImage(null)} className='text-white text-3xl absolute top-2 right-2'  >  x</h1><img src={fullScreenImage} alt="" className='h-[80%] h-fit' /></div>}
       <button className={isDark==="false"?"HomeButton text-white":"HomeButton text-black"}   ><CiHome onClick={() => window.location.href = "/" }/></button>
-      <h1 className={isDark==="false"?'fixed z-1000 top-1 heading text-white  text-gray-400 text-3xl':"fixed z-1000 top-1  heading text-black text-3xl  "} >Events</h1>
+      <h1 className={isDark==="false"?'fixed z-1000 top-1 heading text-white  text-gray-400 text-3xl':"fixed z-1000 top-1  heading   text-black text-3xl  "} >Events</h1>
       {events.length==0 && <h1 className={isDark==="false"?'Post_latest_happening2 text-black':'Post_latest_happening2 text-white'} >No upcoming Events.😞 <span className={isDark==="false"?'post_something_na text-black':'post_something_na text-white'}  >What's happening in Your College ? Share it.</span></h1>}
       <div className="mt-10">
       {events.map((item) => {

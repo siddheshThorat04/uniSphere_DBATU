@@ -1,44 +1,9 @@
 
 import {  Route, Routes } from "react-router-dom";
-// import SignUpPage from "./pages/SignUpPage";
-// import LoginPage from "./pages/LoginPage";
-// import EmailVerificationPage from "./pages/EmailVerificationPage";
-// import DashboardPage from "./pages/DashboardPage";
-// import ForgotPasswordPage from "./pages/ForgotPasswordPage";
-// import ResetPasswordPage from "./pages/ResetPasswordPage";
-
-// import LoadingSpinner from "./components/LoadingSpinner";
-
-// 	import { Toaster } from "react-hot-toast";
-// import { useAuthStore } from "./store/authStore";
-// import { useEffect } from "react";
+import Chat from "./pages/Chat";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
-// protect routes that require authentication
-// const ProtectedRoute = ({ children }) => {
-// 	const { isAuthenticated, user } = useAuthStore();
 
-// 	if (!isAuthenticated) {
-// 		return <Navigate to='/login' replace />;
-// 	}
-
-// 	if (!user.isVerified) {
-// 		return		 <Navigate to='/verify-email' replace />;
-// 	}
-
-// 	return children;
-// };
-
-// redirect authenticated users to the home page
-// const RedirectAuthenticatedUser = ({ children }) => {
-// 	const { isAuthenticated, user } = useAuthStore();
-
-// 	if (isAuthenticated && user.isVerified) {
-// 		return <Navigate to='/' replace />;
-// 	}
-
-// 	return children;
-// };
 
 import { useAuthContext } from "./context/authContext";
 import News from "./pages/News";
@@ -57,6 +22,7 @@ function App() {
 				<Route path='/study-zone' element={<StudyZone/>} />
 				<Route path='/OnlyForAdmin' element={<Admin/>} />
 				<Route path='/events' element={<Events/>} />
+				<Route path='/chat' element={<Chat/>} />
 
 			</Routes>
 		</>
