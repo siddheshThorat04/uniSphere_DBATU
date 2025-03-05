@@ -272,13 +272,6 @@ a {
   color: white;
 }
 
-.messageInputWrapper {
-  display: flex;
-  justify-content: space-between;
-  /* border: 2px solid red; */
-  max-width: 100vw;
-  gap: 4px;
-}
 
 .inputMsg {
   background-color: black;
@@ -366,20 +359,6 @@ a {
   display: flex;
   color: white;
   align-items: center;
-}
-
-.messageContainer {
-
-  display: absolute;
-  top: 0px;
-  height: 87vh;
-  overflow-y: scroll;
-  /* Enable vertical scrolling */
-  /* border: 2px solid red; */
-  padding-bottom: 30px;
-  /* Hide scrollbar */
-  scrollbar-width: none;
-  /* Firefox */
 }
 
 .messageContainer::-webkit-scrollbar {
@@ -540,7 +519,22 @@ body::-webkit-scrollbar {
   border-radius: 10px;
   align-items: center;
 }
+.message-container {
+  display: absolute;
+  top: 0px;
+  height: 90vh;
+  overflow-y: scroll;
+  /* Enable vertical scrolling */
+  /* border: 2px solid red; */
+  padding-bottom: 10px;
+  /* Hide scrollbar */
+  scrollbar-width: none;
 
+  margin: auto;
+}
+.message{
+  word-wrap: break-word   ;
+}
 .ImageBox h4 {
   font-weight: lighter;
   /* color: rgba(255, 255, 255, 0.3); */

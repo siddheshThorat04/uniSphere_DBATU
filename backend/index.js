@@ -2,9 +2,9 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import path from "path";
 import  http from "http";
 import { Server } from "socket.io"
-import path from "path";
 
 import { connectDB } from "./db/connectDB.js";
 import  authRoutes from "./routes/authRoutes.js"
@@ -16,8 +16,9 @@ dotenv.config();
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
-  cors: { origin:["http://localhost:5173", "http://127.0.0.1:5173"],credentials:true},
-});
+	cors: { origin: "*" },
+  });
+  
 const PORT = process.env.PORT || 5000;
 const __dirname = path.resolve();
 
@@ -40,76 +41,137 @@ if (process.env.NODE_ENV === "production") {
 	});
 }
 
-
-let users = [];
-
-io.on("connection", (socket) => {
-  console.log("User connected:", socket.id);
-
-  // Add user to pool
-  users.push(socket.id);
-
-  // Match users
-  if (users.length >= 2) {
-    let user1 = users.shift();
-    let user2 = users.shift();
-
-    io.to(user1).emit("matched", user2);
-    io.to(user2).emit("matched", user1);
-  }
-
-  // Handle messages
-  socket.on("message", async ({ receiver, message }) => {
-    io.to(receiver).emit("message", { sender: socket.id, message });
-  });
-
-  socket.on("disconnect", () => {
-    console.log("User disconnected:", socket.id);
-    users = users.filter((user) => user !== socket.id);
-  });
-});
-// let chatQueue = []; // Only for users looking for random chat
+let queue = {}; // Store users waiting for a match
+let activeChats = {}; // Store active chat pairs
 
 // io.on("connection", (socket) => {
 //   console.log("User connected:", socket.id);
 
-//   // Join random chat queue
-//   socket.on("joinChatQueue", () => {
-//     if (!chatQueue.includes(socket.id)) {
-//       chatQueue.push(socket.id);
-//       console.log("User added to chat queue:", socket.id);
+//   // User joins the queue
+//   socket.on("joinQueue", () => {
+//     queue[socket.id] = true; // Add user to queue
+
+//     let availableUsers = Object.keys(queue).filter(id => id !== socket.id);
+    
+//     if (availableUsers.length > 0) {
+//       let partnerId = availableUsers[0];
+
+//       delete queue[socket.id];
+//       delete queue[partnerId];
+
+//       activeChats[socket.id] = partnerId;
+//       activeChats[partnerId] = socket.id;
+
+//       io.to(socket.id).emit("matched", partnerId);
+//       io.to(partnerId).emit("matched", socket.id);
 //     }
-
-//     // Match users
-//     if (chatQueue.length >= 2) {
-//       let user1 = chatQueue.shift();
-//       let user2 = chatQueue.shift();
-
-//       io.to(user1).emit("matched", { partner: user2 });
-//       io.to(user2).emit("matched", { partner: user1 });
-
-//       console.log(`Matched ${user1} with ${user2}`);
-//     }
-//   });
-
-//   // Remove user from queue when they leave "talkRandomly"
-//   socket.on("leaveChatQueue", () => {
-//     chatQueue = chatQueue.filter((user) => user !== socket.id);
-//     console.log("User left chat queue:", socket.id);
 //   });
 
 //   // Handle messages
 //   socket.on("message", ({ receiver, message }) => {
 //     io.to(receiver).emit("message", { sender: socket.id, message });
 //   });
+//   socket.on("typing", () => {
+//     let partnerId = activeChats[socket.id];
+//     if (partnerId) {
+//       io.to(partnerId).emit("typing", { sender: socket.id });
+//     }
+//   });
+//   // Handle user leaving the chat or navigating away
+//   socket.on("leaveChat", () => {
+//     let partnerId = activeChats[socket.id];
 
-//   // Handle disconnection
+//     if (partnerId) {
+//       io.to(partnerId).emit("partnerLeft"); // Notify the other user
+//       delete activeChats[partnerId];
+//     }
+//     delete activeChats[socket.id];
+//     queue[socket.id] = true; // Add back to queue for re-matching
+//   });
+
+//   // Handle user disconnection
 //   socket.on("disconnect", () => {
 //     console.log("User disconnected:", socket.id);
-//     chatQueue = chatQueue.filter((user) => user !== socket.id);
+
+//     let partnerId = activeChats[socket.id];
+
+//     if (partnerId) {
+//       io.to(partnerId).emit("partnerLeft"); // Notify partner
+//       delete activeChats[partnerId];
+//     }
+//     delete activeChats[socket.id];
+//     delete queue[socket.id];
 //   });
 // });
+io.on("connection", (socket) => {
+  console.log("User connected:", socket.id);
 
+  // User joins the queue
+  socket.on("joinQueue", () => {
+    queue[socket.id] = true;
+
+    let availableUsers = Object.keys(queue).filter((id) => id !== socket.id);
+
+    if (availableUsers.length > 0) {
+      let partnerId = availableUsers[0];
+
+      delete queue[socket.id];
+      delete queue[partnerId];
+
+      activeChats[socket.id] = partnerId;
+      activeChats[partnerId] = socket.id;
+
+      io.to(socket.id).emit("matched", partnerId);
+      io.to(partnerId).emit("matched", socket.id);
+    }
+  });
+
+  // Handle messages
+  socket.on("message", ({ receiver, message }) => {
+    io.to(receiver).emit("message", { sender: socket.id, message });
+  });
+
+  // **Typing Indicator Events**
+  socket.on("typing", () => {
+    let partnerId = activeChats[socket.id];
+    if (partnerId) {
+      io.to(partnerId).emit("typing");
+    }
+  });
+
+  socket.on("typing_stop", () => {
+    let partnerId = activeChats[socket.id];
+    if (partnerId) {
+      io.to(partnerId).emit("typing_stop");
+    }
+  });
+
+  // Handle user leaving the chat or navigating away
+  socket.on("leaveChat", () => {
+    let partnerId = activeChats[socket.id];
+
+    if (partnerId) {
+      io.to(partnerId).emit("partnerLeft");
+      delete activeChats[partnerId];
+    }
+    delete activeChats[socket.id];
+    queue[socket.id] = true;
+  });
+
+  // Handle user disconnection
+  socket.on("disconnect", () => {
+    console.log("User disconnected:", socket.id);
+
+    let partnerId = activeChats[socket.id];
+
+    if (partnerId) {
+      io.to(partnerId).emit("partnerLeft");
+      delete activeChats[partnerId];
+    }
+    delete activeChats[socket.id];
+    delete queue[socket.id];
+  });
+});
 server.listen(PORT, () => {
 	connectDB();
 	console.log("Server is running on port: ", PORT);
