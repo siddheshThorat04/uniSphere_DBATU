@@ -10,6 +10,8 @@ import News from "./pages/News";
 import StudyZone from "./pages/StudyZone";
 import Admin from "./pages/Admin";
 import Events from "./pages/Events";
+import Leadboard from "./pages/Leadboard";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
 	const {authUser, setauthUser}=useAuthContext()	
@@ -23,7 +25,8 @@ function App() {
 				<Route path='/OnlyForAdmin' element={<Admin/>} />
 				<Route path='/events' element={<Events/>} />
 				<Route path='/chat' element={<Chat/>} />
-
+				<Route path='/Leadboard' element={<Leadboard/>} />
+				<Route path="/profile/:id" element={<ProfilePage />} />
 			</Routes>
 		</>
 	);

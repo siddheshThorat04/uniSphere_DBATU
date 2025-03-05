@@ -60,29 +60,30 @@ export const getEvents = async (req, res) => {
 
 export const updateProfile = async (req, res) => {
     try {
-        const { username, instagramLink } = req.body
-        const user = req.user
+        const { username } = req.body;
+
+        // Check if username is already taken
+        const userAvail = await User.findOne({ username: username });
+        if (userAvail) {
+            return res.status(400).json({ error: "Username Taken" });
+        }
+
+        const user = req.user; // Assuming req.user is set from auth middleware
         if (!user) {
-            throw new Error("Please login first")
+            return res.status(500).json({ error: "User Not Found" });
         }
-        if (!instagramLink) {
-            user.username = username
-            user.instagramLink = user.instagramLink
-        }
-        if (username && instagramLink) {
-            user.username = username
-            user.instagramLink = instagramLink
-        }
-        if (!username && instagramLink) {
-            user.instagramLink = instagramLink
-        }
-        await user.save()
-        res.status(200).json({ message: "Profile Updated", user: user })
+
+        // Update user details
+        user.username = username;
+        await user.save();
+
+        res.status(200).json({ message: "Profile Updated", user });
 
     } catch (error) {
-        res.status(400).json({ error: error.message })
+        res.status(400).json({ error: error.message });
     }
-}
+};
+
 export const getProfile = async (req, res) => {
     try {
         const userId = req.params.id
