@@ -5,13 +5,13 @@ import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 
 
-import { useAuthContext } from "./context/authContext";
-import News from "./pages/News";
-import StudyZone from "./pages/StudyZone";
-import Admin from "./pages/Admin";
-import Events from "./pages/Events";
-import Leadboard from "./pages/Leadboard";
-import ProfilePage from "./pages/ProfilePage";
+import { useAuthContext } from "./context/authContext.jsx";
+import News from "./pages/News.jsx";
+import StudyZone from "./pages/StudyZone.jsx";
+import Admin from "./pages/Admin.jsx";
+import Events from "./pages/Events.jsx";
+import Leadboard from "./pages/Leadboard.jsx";
+import ProfilePage from "./pages/ProfilePage.jsx";
 
 function App() {
 	const {authUser, setauthUser}=useAuthContext()	
