@@ -24,6 +24,7 @@ const Signup = () => {
     const username = "User" + Date.now() + Math.floor(Math.random() * 1000);
     const password = "Password" + Date.now() + Math.floor(Math.random() * 1000);
     setUsername(username);
+    
     setPassword(password);
     console.log(username, password)
   }, [])

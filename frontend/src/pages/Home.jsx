@@ -13,7 +13,7 @@ import axios from "axios"
 const Home = () => {
 
 
-  const API_URL = "http://localhost:5000" 
+  const API = "http://localhost:5000" 
   const { isDark, setDark } = useDarkThemeContext()
   const { authUser,setAuthUser } = useAuthContext();
   
@@ -28,18 +28,14 @@ const Home = () => {
     }
   }
   useEffect(() => {
-    console.log(import.meta.env.VITE_MODE)
-  },[])
-  console.log(isDark)
-  const logout = async () => {
-    try {
-      await axios.post(`${API_URL}/api/auth/logout`, { withCredentials: true });
-      localStorage.removeItem("authUser");
-      window.location.reload();
-    } catch (error) {
-      console.log(error);
+    const refreshToken = async () => {
+      const res = await axios.post(`${API}/api/auth/refreshToken`,{},{withCredentials:true})
+      console.log(res.data)
     }
-  }
+
+    refreshToken()
+  }, []);
+  console.log(isDark)
   return (
     <> 
     {/* <button onClick={logout} className='text-black absolute border-[1px] border-black  p-2 rounded-lg    top-2 left-2  bg-none ' >Logout</button> */}

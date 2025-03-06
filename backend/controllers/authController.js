@@ -211,11 +211,11 @@ export const  signup =async (req,res)=>{
         }
         
         if (!username || !password || !college) {
-            return res.status(400).json({ error: "all fields are required" })
+            return res.status(401).json({ error: "all fields are required" })
         }
         const user = await User.findOne({ username })
         if (user) {
-            return res.status(400).json({ error: "user already exists" })
+            return res.status(404).json({ error: "user already exists" })
         }
         
         const salt = await bcrypt.genSalt(10)
@@ -274,4 +274,14 @@ export const logout = async (req, res) => {
         res.status(400).json("error in logging out", error.message)
     }
 
+}
+
+export const refreshToken = async (req, res) => {
+    try {
+        const user=req.user
+        generateTokenAndSetCookie(user._id, res)
+        res.status(200).json({message:"token refreshed successfully"})
+    } catch (error) {
+        res.status(400).json({error:error.message})
+    }
 }

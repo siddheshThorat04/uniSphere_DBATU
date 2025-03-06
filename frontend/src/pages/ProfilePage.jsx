@@ -68,7 +68,7 @@ const ProfilePage = () => {
       <div className={isDark === "false" ? 'profileHeader border-black ' : "profileHeader"}>
         <img src={dp} alt="" />
         <div className='name_and_insta' >
-          <h1 className={isDark === "false" ? 'text-black' : "text-white"}  >{user?.username}</h1>
+          <h1 className={isDark === "false" ? 'text-black  w-[250px] overflow-auto' : "text-white  w-[250px] overflow-auto"}  >{user?.username}</h1>
           {user?.instagramLink && <a href={user?.instagramLink} target='_blank' className='instagram'   ><FaInstagram className='instaIcon' /> <span className={isDark === "false" ? 'text-black' : "text-white"} > instagram.com</span> </a>}
         </div>
       </div>
