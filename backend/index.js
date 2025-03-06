@@ -20,35 +20,17 @@ const io = new Server(server, {
 });
 
 const PORT = process.env.PORT || 5000;
-const __dirname = path.resolve();
-
-
 app.use(express.json()); // allows us to parse incoming requests:req.body
 app.use(cookieParser()); // allows us to parse incoming cookies
 
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(cors({ origin: ["http://localhost:5173", process.env.CLIENT_URL], credentials: true }));
 
 
 app.use("/api/auth", authRoutes)
 app.use("/api/admin", adminRoutes)
 app.use("/api/user", userRoutes)
-
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "/frontend/dist")));
-
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
-  });
-}
-
 let queue = {}; // Store users waiting for a match
 let activeChats = {}; // Store active chat pairs
-app.get('/api/config', (req, res) => {
-  res.json({
-    apiUrl: process.env.API_URL, // Example variable
-    MODE: process.env.MODE
-  });
-});
 
 io.on("connection", (socket) => {
   console.log("User connected:", socket.id);
