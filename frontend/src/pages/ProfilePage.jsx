@@ -9,9 +9,9 @@ import { GoHome } from "react-icons/go";
 import axios from 'axios';
 import { useDarkThemeContext } from '../context/DarkTheme';
 const ProfilePage = () => {
-  // const mode=import.meta.env.VITE_MODE
-  // const API= mode==="DEVELOPMENT"?import.meta.env.VITE_API_DEV:import.meta.env.VITE_API
-  const API = "http://localhost:5000"
+  // const API = "http://localhost:5000"
+  const API = import.meta.env.VITE_MODE === "DEVELOPMENT" ? import.meta.env.VITE_API_DEV : import.meta.env.VITE_API_PRODUCTION
+
   const userId = useParams().id
   const [user, setUser] = useState()
   const { authUser, setauthUser } = useAuthContext()

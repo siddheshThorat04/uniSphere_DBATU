@@ -6,10 +6,9 @@ import { GoHome } from "react-icons/go";
 import { useDarkThemeContext } from '../context/DarkTheme';
 import axios from 'axios';
 const Leadboard = () => {
+    // const API="http://localhost:5000"
+    const API = import.meta.env.VITE_MODE === "DEVELOPMENT" ? import.meta.env.VITE_API_DEV : import.meta.env.VITE_API_PRODUCTION
 
-    // const mode=import.meta.env.VITE_MODE    
-    // const API= mode==="DEVELOPMENT"?import.meta.env.VITE_API_DEV:import.meta.env.VITE_API
-    const API="http://localhost:5000"
     const [Leadboard, setLeadboard] = useState([]);
     const {isDark}=useDarkThemeContext()
     useEffect(() => {

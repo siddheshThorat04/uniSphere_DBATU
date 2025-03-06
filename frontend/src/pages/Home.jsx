@@ -13,7 +13,7 @@ import axios from "axios"
 const Home = () => {
 
 
-  const API = "http://localhost:5000" 
+  const API = import.meta.env.VITE_MODE === "DEVELOPMENT" ? import.meta.env.VITE_API_DEV : import.meta.env.VITE_API_PRODUCTION
   const { isDark, setDark } = useDarkThemeContext()
   const { authUser,setAuthUser } = useAuthContext();
   
@@ -28,12 +28,14 @@ const Home = () => {
     }
   }
   useEffect(() => {
+    console.log(import.meta.env.VITE_MODE)
     const refreshToken = async () => {
       const res = await axios.post(`${API}/api/auth/refreshToken`,{},{withCredentials:true})
       console.log(res.data)
     }
 
     refreshToken()
+
   }, []);
   console.log(isDark)
   return (

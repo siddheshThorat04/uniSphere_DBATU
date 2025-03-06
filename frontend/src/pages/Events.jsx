@@ -8,10 +8,9 @@ import { useDarkThemeContext } from '../context/DarkTheme';
 import { MdDelete } from "react-icons/md";
 import { useAuthContext } from '../context/authContext';
 const Events = () => {
+  const API = import.meta.env.VITE_MODE === "DEVELOPMENT" ? import.meta.env.VITE_API_DEV : import.meta.env.VITE_API_PRODUCTION
 
-  // const mode=import.meta.env.VITE_MODE
-  // const API= mode==="DEVELOPMENT"?import.meta.env.VITE_API_DEV:import.meta.env.VITE_API
-  const API="http://localhost:5000"
+  // const API="http://localhost:5000"
   const [file, setFile] = useState();
   const [Name, setName] = useState("");
   const [description, setDescription] = useState("");

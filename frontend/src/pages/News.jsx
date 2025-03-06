@@ -7,6 +7,9 @@ import { CiHome } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 
 const News = () => {
+  // const API= "http://localhost:5000"
+  const API = import.meta.env.VITE_MODE === "DEVELOPMENT" ? import.meta.env.VITE_API_DEV : import.meta.env.VITE_API_PRODUCTION
+
   const {authUser}=useAuthContext()
   const [file, setFile] = useState();
   const [title, setTitle] = useState("");
@@ -15,7 +18,6 @@ const News = () => {
   const [isAdding, setIsAdding] = useState(false);
   const [news, setnews] = useState([]);
   const {isDark, setDark}=useDarkThemeContext()
-  const API= "http://localhost:5000"
   useEffect(() => {
     const getNews= async ()=>{
       const res= await axios.get(`${API}/api/user/getNews`,{withCredentials:true})

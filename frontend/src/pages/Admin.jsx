@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import axios from "axios"
 const Admin = () => {
-    // const mode=import.meta.env.VITE_MODE
-    // const API= mode==="DEVELOPMENT"?import.meta.env.VITE_API_DEV:import.meta.env.VITE_API
-    const API="http://localhost:5000"
+    
+    // const API="http://localhost:5000"
+    
+  const API = import.meta.env.VITE_MODE === "DEVELOPMENT" ? import.meta.env.VITE_API_DEV : import.meta.env.VITE_API_PRODUCTION
     const [isAddingCollege, setIsAddingCollege] = useState(false);
     const [collegeName, setCollegeName] = useState('');
     const [isAddingMeet, setIsAddingMeet] = useState(false);

@@ -9,11 +9,10 @@ import { GoHome } from "react-icons/go"
 import { FaInstagram } from "react-icons/fa";
 import axios from "axios"
 const StudyZone = () => {
+    // const API= "http://localhost:5000"
+    const API = import.meta.env.VITE_MODE === "DEVELOPMENT" ? import.meta.env.VITE_API_DEV : import.meta.env.VITE_API_PRODUCTION
     const { authUser } = useAuthContext()
     const { isDark } = useDarkThemeContext()
-    // const mode=import.meta.env.MODE
-    // const API= mode==="DEVELOPMENT"?import.meta.env.VITE_API_DEV:import.meta.env.VITE_API
-    const API= "http://localhost:5000"
 
     const [meetZone, setMeetZone] = useState([]);
     useEffect(() => {
