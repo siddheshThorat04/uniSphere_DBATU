@@ -10,7 +10,7 @@ const projectSchema = new mongoose.Schema({
         ref:"User"
     },
     description:{
-        type:string,
+        type:String,
     },
     link:{
         type: String
