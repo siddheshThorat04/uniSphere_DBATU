@@ -1,5 +1,5 @@
 import  express from "express"
-import { getMeet, getNews, getEvents, updateProfile,getProfile } from "../controllers/userController.js"
+import { getMeet, getNews, getEvents, updateProfile,getProfile,createProject,getProjects } from "../controllers/userController.js"
 import protectRoute  from  "../middleware/protectRoute.js"
 import  News from "../models/newsModel.js"
 import Event from "../models/eventModel.js"
@@ -72,7 +72,7 @@ router.get("/getNews",protectRoute,getNews);
 router.get("/getEvents",protectRoute,getEvents);
 router.post("/updateProfile",protectRoute,updateProfile);
 router.get("/getProfile/:id",getProfile);
-router.post("createProject",protectRoute,crateProject);
-
+router.post("/createProject",protectRoute,createProject);
+router.get("/getProjects",getProjects);
 
 export default router

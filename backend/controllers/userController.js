@@ -96,7 +96,7 @@ export const getProfile = async (req, res) => {
         res.status(400).json({ error: error.message })
     }
 }
-export const crateProject=async(req,res)=>{
+export const createProject=async(req,res)=>{
     try {
         const user=req.user;
         const {title,description}=req.body
