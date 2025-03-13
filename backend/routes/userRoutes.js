@@ -68,10 +68,11 @@ router.post("/addEvent",upload.single("image"),protectRoute,async(req,res)=>{
         res.status(400).json({error:error.message})
     }
 })
-router.get("/getNews",protectRoute,getNews)
-router.get("/getEvents",protectRoute,getEvents)
-router.post("/updateProfile",protectRoute,updateProfile)
-router.get("/getProfile/:id",getProfile)
+router.get("/getNews",protectRoute,getNews);
+router.get("/getEvents",protectRoute,getEvents);
+router.post("/updateProfile",protectRoute,updateProfile);
+router.get("/getProfile/:id",getProfile);
+router.post("createProject",protectRoute,crateProject);
 
 
 export default router

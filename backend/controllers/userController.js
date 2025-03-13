@@ -3,7 +3,7 @@ import Meet from "../models/meetModel.js"
 import  User from "../models/userModel.js"
 import  News from "../models/newsModel.js"
 import  Event from "../models/eventModel.js"
-
+import Project from "../models/projectModel.js"
 
 export const getMeet = async (req, res) => {
     try {
@@ -94,5 +94,24 @@ export const getProfile = async (req, res) => {
         res.status(200).json({ user: user })
     } catch (error) {
         res.status(400).json({ error: error.message })
+    }
+}
+export const crateProject=async(req,res)=>{
+    try {
+        const user=req.user;
+        const {title,description}=req.body
+        const project=new Project({title,description,postedBy:user._id})
+        await project.save()
+        res.status(200).json({project})
+    } catch (error) {
+        res.status(400).json({error:error.message})
+    }
+}
+export const getProjects=async(req,res)=>{
+    try {
+        const projects=await Project.find().populate("postedBy")
+        res.status(200).json({projects})
+    } catch (error) {
+        res.status(400).json({error:error.message})
     }
 }
