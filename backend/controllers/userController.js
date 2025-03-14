@@ -99,8 +99,9 @@ export const getProfile = async (req, res) => {
 export const createProject=async(req,res)=>{
     try {
         const user=req.user;
-        const {title,description}=req.body
-        const project=new Project({title,description,postedBy:user._id})
+        const {title,description,link}=req.body
+
+        const project=new Project({title,description,link,postedBy:user._id})
         await project.save()
         res.status(200).json({project})
     } catch (error) {
