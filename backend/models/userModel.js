@@ -22,9 +22,10 @@ const userSchema = new mongoose.Schema({
         type:Number,
         default:0
     },
-    instagramLink: {
-        type: String,
-    }               
+    isBlocked:{
+        type:Boolean,
+        default:false
+    }              
 }, { timestamps: true })
 
 

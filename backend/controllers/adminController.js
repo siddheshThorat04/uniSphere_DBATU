@@ -73,3 +73,17 @@ export const deleteEvent = async (req, res) => {
         res.status(400).json({error:error.message})
     }
 }
+
+
+export const blockUser = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id)
+
+        user.isBlocked=true;
+        console.log(user)
+        await user.save()
+        res.status(200).json({message:"User Blocked"})     
+    } catch (error) {
+        res.status(400).json({error:error.message})
+    }
+}

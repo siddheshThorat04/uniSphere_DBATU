@@ -45,6 +45,9 @@ router.post("/addNews",upload.single("image"),protectRoute,async(req,res)=>{
         // console.log(req.file.location);
         const {title,description,isForAll}=req.body
         const image=req.file ? req.file.location:""
+        if(req.user.isBlocked){
+           return  res.status(200).json({message:"Your Account is Blocked"});
+        }
         const news=new News({title,description,isForAll,college:req.user.college,postedBy:req.user._id,image:image })
         req.user.contributions+=1
         await news.save()
