@@ -9,7 +9,7 @@ export const generateTokenAndSetCookie = ( userId,res) => {
 	res.cookie("token", token, {
 		httpOnly: true,
 		secure: process.env.VITE_MODE === "production",
-		sameSite: process.env.VITE_MODE === "production" ? "none" : "strict",
+		sameSite: "none",
 		maxAge: 30*24*60*60*1000
 	});
 
