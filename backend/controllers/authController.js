@@ -230,9 +230,9 @@ export const  signup =async (req,res)=>{
             isAdmin
         })
         if (newUser) {
-            generateTokenAndSetCookie(newUser._id, res)
+            const token = generateTokenAndSetCookie(newUser._id, res)
             await newUser.save()
-            res.status(200).json({message:"signed up succefully ",user:newUser })
+            res.status(200).json({message:"signed up succefully ",user:token })
             
         }
     } catch (error) {

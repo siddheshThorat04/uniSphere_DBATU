@@ -6,7 +6,7 @@ const protectRoute = async (req, res, next) => {
     try {
         const token = req.cookies.token;
         if (!token) {
-            return res.status(401).json({ error: "Please login first" });
+            return res.status(402).json({ error: "Please login first" });
         }
         console.log("Token received:", token);
 
