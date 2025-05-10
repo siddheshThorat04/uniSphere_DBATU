@@ -232,7 +232,7 @@ export const  signup =async (req,res)=>{
         if (newUser) {
             const token = generateTokenAndSetCookie(newUser._id, res)
             await newUser.save()
-            res.status(200).json({message:"signed up succefully ",user:token })
+            res.status(200).json({message:"signed up succefully ",user:newUser })
             
         }
     } catch (error) {
